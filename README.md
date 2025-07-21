@@ -5,6 +5,7 @@
 - `pip install argparse`
 - `pip install numpy`
 - 用法：
-- `python Wav2Chart.py [WavFile] [Outflie] --intensity [UserInt]`
-- UserInt为整数，数字越大，生成的谱面文件越大，播放的声音越精确
+- `python Wav2Chart.py [WavFile] [Outflie] --intensity [intensity]`
+- intensity为整数，数字越大，生成的谱面文件越大，播放的声音越精确
+- intensity默认为10
 - 你只能使用Wav文件
