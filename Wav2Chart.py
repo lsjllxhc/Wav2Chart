@@ -64,13 +64,13 @@ def generate_chart(audio_data, sample_rate, output_file):
             
         # 确定音符类型（Tap或Drag）
         note_type = "n1" if value > 0 else "n4"
+        line_type = "1" if value >0 else "3"
         
         # 在拍数附近均匀生成多个音符
         for i in range(num_notes):
             current_beat = int(beat_float)
-            x = randint(-100,100)
             chart_content.extend([
-                f"{note_type} 1 {current_beat} {x} 1 0",
+                f"{note_type} {line_type} {current_beat} 0 1 0",
                 "# 1.00",
                 "& 1.00",
             ])
@@ -90,7 +90,7 @@ def generate_chart(audio_data, sample_rate, output_file):
 	"",
 	"cv 1 0.000 700.000",
 	"",
-	"cp 1 0.000 768.000 0.000",
+	"cp 1 0.000 725.000 0.000",
 	"",
 	"cd 1 0.000 0.000",
 	"",
@@ -110,7 +110,7 @@ def generate_chart(audio_data, sample_rate, output_file):
 	"",
 	"cv 3 0.000 700.000",
 	"",
-	"cp 3 0.000 1280.000 0.000",
+	"cp 3 0.000 1324.000 0.000",
 	"",
 	"cd 3 0.000 0.000",
 	"",
