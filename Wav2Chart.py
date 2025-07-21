@@ -2,6 +2,7 @@ import wave
 import numpy as np
 import argparse
 import sys
+from random import randint
 
 def load_1bit_wav(file_path):
     """加载 WAV 文件，并返回归一化的音频数据和采样率"""
@@ -56,7 +57,7 @@ def generate_chart(audio_data, sample_rate, output_file):
     for value, beat in zip(audio_data, beat_positions):
         beat_float = float(beat)
         amplitude = abs(value)
-        num_notes = int(amplitude * 10)  # 根据幅度生成0-10个音符
+        num_notes = int(amplitude * UserInt)  # 根据幅度生成0-10个音符
         
         if num_notes <= 0:
             continue  # 跳过静音
@@ -67,8 +68,9 @@ def generate_chart(audio_data, sample_rate, output_file):
         # 在拍数附近均匀生成多个音符
         for i in range(num_notes):
             current_beat = int(beat_float)
+            x = randint(-100,100)
             chart_content.extend([
-                f"{note_type} 1 {current_beat} 0 1 0",
+                f"{note_type} 1 {current_beat} {x} 1 0",
                 "# 1.00",
                 "& 1.00",
             ])
@@ -139,13 +141,18 @@ def main():
     parser = argparse.ArgumentParser(description='1bit音频转Phigros谱面生成器')
     parser.add_argument('input_file', help='输入WAV音频文件')
     parser.add_argument('output_file', help='输出谱面文件')
+    parser.add_argument('--intensity', '-i', type=int, default=10,
+                        help='音符生成强度（默认值: 10）')
     
     args = parser.parse_args()
+    global UserInt
+    UserInt = args.intensity
     
     # 加载音频
     audio_data, sample_rate = load_1bit_wav(args.input_file)
     print(f"音频加载成功: {args.input_file}")
     print(f"采样率: {sample_rate}Hz, 将使用BPM: {sample_rate*60}")
+    print(f"音符生成强度: {UserInt}")
     
     # 生成谱面
     generate_chart(
